@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img src="{% static "image/logo.png" %}">
+<nav style="display: flex; justify-content:space-evenly;">
+    <a href="{% url 'index' %}">Index</a>
+    <a href="{% url 'n1' %}">Home</a>
+    <a href="{% url 'a1' %}">About Us</a>
+    <a href="{% url 'c1' %}">Contact</a>
+    <a href="{% url 'servin' %}">Services</a>
+
+    {% if user.is_authenticated %}
+    <span> Logged In as {{ user.username }} .Your email id {{ user.email }} </span>
+    <a href="{% url 'logout' %}"><button> Logout </button></a>
+    {% else %}
+    <a href="{% url 'login' %}"><button> Login </button></a>
+    <a href="{% url 'registername' %}"><button> Register </button></a>
+    {% endif %}
+
+
+
+</nav>
+
+{% block title %}
+{% endblock title %}
+
+{% block ginga %}
+{% endblock ginga %}
+
+</body>
+</html>

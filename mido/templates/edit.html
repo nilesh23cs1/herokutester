@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="task" required placeholder="{{ taskobj.task }}" value="{{ taskobj.task }}">
+    <input type="hidden" name="done" value= " {{taskobj.done}} " >
+    <!-- Since we dont want to change our done value . Thus we include this field -->
+<!--    Otherwise our form will make the done value to false because it is false by default.-->
+<!--    Thus we take the value of done stored in database and pass this value to form -->
+<!--    in order to save it in database. Thus we are not changing our done value.-->
+<!--    Otherwise by removing this line it will make done value false everytime-->
+<!--    because done is false by default in our model -->
+    <button type="submit">Update Task</button>
+</form>
+
+
+</body>
+</html>

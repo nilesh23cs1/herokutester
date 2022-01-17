@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if messages %}      <!-- Just add on more validation i.e. if message is available then loop
+                            work and message displayed otherwise loop not work. -->
+{% for message in messages %}
+<h1 style="color: red;"> {{message}}  </h1>
+{% endfor %}
+{% endif %}
+
+
+
+<form method="POST">
+    {% csrf_token %}   <!--POST method is used to send data on server & csrf_token used for security-->
+    <input type="text" name="task" required placeholder="Enter task"> <!--name must match with form fields -->
+    <button type="submit">Submit</button>
+</form>
+
+
+
+<br><br><br>
+
+
+{{alltask}}
+
+<br><br><br>
+
+{% if alltask %}
+{% for obj in alltask %}
+{{obj.task}}  ||||||||||||| {{obj.done}}
+<br>
+{% endfor %}
+{% endif %}
+
+
+
+<br><br><br>
+{% if alltask %}
+{% for obj in alltask %}
+
+{% if obj.done %}
+{{obj.task}}  ||||||||||||| Completed <br>
+{% else %}
+{{obj.task}}  ||||||||||||| Not Completed <br>
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+
+<br><br><h1>Delete item</h1>
+{% if alltask %}
+{% for obj in alltask %}
+{{obj.id}}||{{obj.task}}||{{obj.done}}||||||<a href="{% url 'deletetask' obj.id %}"> <button>Delete</button> </a><br>
+{% endfor %}
+{% endif %}
+
+
+
+<br><br><h1>Edit item</h1>
+{% if alltask %}
+{% for obj in alltask %}
+{{obj.id}}||{{obj.task}}||{{obj.done}}||||||<a href="{% url 'edittask' obj.id %}"> <button>Edit</button> </a><br>
+{% endfor %}
+{% endif %}
+
+
+
+<br><br><h1>Mark Completed or pending</h1>
+{% if alltask %}
+{% for obj in alltask %}
+{% if obj.done %}
+{{obj.id}}||{{obj.task}}||{{obj.done}}||<a href="{% url 'pendingtask' obj.id %}"> <button>Mark it pending</button> </a><br>
+{% else %}
+{{obj.id}}||{{obj.task}}||{{obj.done}}||<a href="{% url 'completetask' obj.id %}"> <button>Mark it completed</button> </a><br>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+
+
+
+
+</body>
+</html>
